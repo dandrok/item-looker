@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
 import { saveUniqueData } from "../helpers/saveUniqueData";
-// import { loadingDots } from "../helpers/fancyLog";
 import ora from "ora";
 
 const spinnerLog = (msg: string) => ora(`${msg}`).start();
@@ -78,5 +77,6 @@ export async function olx() {
   // Save uniquely
   await browser.close();
   await saveUniqueData("./olx-data.json", results);
-  console.log("DONE!");
+  console.log("🎯 OLX part completed.");
+  console.log("______________________________\n");
 }
