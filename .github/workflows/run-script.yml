@@ -25,4 +25,4 @@ jobs:
         run: npx tsx src/test-notion.ts
         env:
           NOTION_TOKEN: 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
-          NOTION_DATABASE_ID: 22f63ffff2d680f8b73c000cda692c29
+          NOTION_DATABASE_ID: 22f63ffff2d680b493f8ce1dc495aefa
