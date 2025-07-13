@@ -7,8 +7,13 @@ const spinnerLog = (msg: string) => ora(`${msg}`).start();
 
 export async function olx() {
   const browser = await puppeteer.launch({
-    headless: false, // Uncomment for debugging and to see the browser
-    args: ["--use-fake-ui-for-media-stream", "--disable-geolocation"],
+    headless: true, // Uncomment for debugging and to see the browser
+    args: [
+      "--use-fake-ui-for-media-stream",
+      "--disable-geolocation",
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+    ],
   });
   const context = browser.defaultBrowserContext();
   const page = await browser.newPage();
