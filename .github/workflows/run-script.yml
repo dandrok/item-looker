@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run test-notion.ts script
-        run: npx tsx src/test-notion.ts
+      - name: Run main script
+        run: npx tsx src/index.ts
         env:
           NOTION_TOKEN: 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
           NOTION_DATABASE_ID: 22f63fff-f2d6-80b4-93f8-ce1dc495aefa

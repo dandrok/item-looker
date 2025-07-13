@@ -1,3 +1,13 @@
+import { syncToNotion } from "./update-notion";
 import { olx } from "./views/olx";
 
-olx().catch(console.error);
+const main = async () => {
+  try {
+    await olx();
+    await syncToNotion();
+  } catch (error) {
+    console.error("Error in main execution:", error);
+  }
+};
+
+main().catch(console.error);
