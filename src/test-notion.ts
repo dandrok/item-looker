@@ -7,7 +7,7 @@ const notion = new Client({ auth: notionToken });
 async function addTestPage() {
   try {
     const response = await notion.pages.create({
-      parent: { database_id: "22f63ffff2d680f8b73c000cda692c29" },
+      parent: { database_id: "22f63ffff2d680b493f8ce1dc495aefa" },
       properties: {
         Name: {
           title: [
