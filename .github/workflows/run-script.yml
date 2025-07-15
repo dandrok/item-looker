@@ -3,7 +3,7 @@ name: Run TSX Script
 on:
   workflow_dispatch: # manual trigger via GitHub UI
   schedule:
-    - cron: "0 * * * *" # runs every hour
+    - cron: "0 */8 * * *" # runs every 8 hours
 
 jobs:
   run-script:
