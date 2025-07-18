@@ -4,7 +4,7 @@ import ora from "ora";
 
 export async function olx() {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: [
       "--use-fake-ui-for-media-stream",
       "--disable-geolocation",
@@ -16,20 +16,6 @@ export async function olx() {
   await context.overridePermissions("https://www.olx.pl", []);
 
   const page = await browser.newPage();
-  await page.setRequestInterception(true);
-
-  page.on("request", (request) => {
-    const resourceType = request.resourceType();
-    if (
-      resourceType === "image" ||
-      resourceType === "stylesheet" ||
-      resourceType === "font"
-    ) {
-      request.abort();
-    } else {
-      request.continue();
-    }
-  });
 
   await page.setUserAgent(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
