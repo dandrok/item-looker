@@ -24,7 +24,12 @@ export async function olx() {
   const scrapingSpinner = ora("Scraping OLX...").start();
 
   const acceptButton = await page.$("button#onetrust-accept-btn-handler");
-  if (acceptButton) await acceptButton.click();
+
+  if (acceptButton) {
+    await acceptButton.click();
+  }
+
+  await page.waitForSelector('[data-testid="l-card"]', { timeout: 10000 });
 
   const results = await page.$$eval('[data-testid="l-card"]', (cards) =>
     cards.map((card) => {
