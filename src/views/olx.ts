@@ -16,6 +16,12 @@ export async function olx() {
   await context.overridePermissions("https://www.olx.pl", []);
 
   const page = await browser.newPage();
+
+  await page.setUserAgent(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
+      "(KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+  );
+
   await page.goto(
     "https://www.olx.pl/elektronika/fotografia/q-ricoh/?search%5Border%5D=created_at:desc&search%5Bfilter_float_price:from%5D=2000&search%5Bfilter_float_price:to%5D=4000&search%5Bfilter_enum_state%5D%5B0%5D=used",
     { waitUntil: "networkidle2", timeout: 60000 }
@@ -29,7 +35,7 @@ export async function olx() {
     await acceptButton.click();
   }
 
-  await page.waitForSelector('[data-testid="l-card"]', { timeout: 10000 });
+  await page.waitForSelector('[data-testid="l-card"]', { timeout: 30000 });
 
   const results = await page.$$eval('[data-testid="l-card"]', (cards) =>
     cards.map((card) => {
