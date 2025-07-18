@@ -12,6 +12,8 @@ export async function olx() {
       "--disable-setuid-sandbox",
     ],
   });
+  const context = browser.defaultBrowserContext();
+  await context.overridePermissions("https://www.olx.pl", []);
 
   const page = await browser.newPage();
   await page.goto(
