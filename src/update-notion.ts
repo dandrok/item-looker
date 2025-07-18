@@ -1,28 +1,18 @@
 import { Client } from "@notionhq/client";
-import fs from "fs/promises";
 import ora from "ora";
-import path from "path";
 
 const notionToken = "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";
 const databaseId = "22f63fff-f2d6-80b4-93f8-ce1dc495aefa";
 
 const notion = new Client({ auth: notionToken });
 
-export async function syncToNotion() {
-  const spinner = ora("Reading local OLX data...").start();
-
-  const filePath = path.resolve("olx-data.json");
-  const fileContent = await fs.readFile(filePath, "utf-8");
-  const newItems = JSON.parse(fileContent);
-
-  spinner.succeed(`Loaded ${newItems.length} items from olx-data.json`);
-
-  spinner.start("Fetching existing items from Notion...");
+export async function syncToNotion(freshItems: any[]) {
+  const spinner = ora("Fetching existing items from Notion...").start();
   const existingHrefs = await getExistingHrefsFromNotion();
   spinner.succeed(`Fetched ${existingHrefs.size} existing items from Notion.`);
 
-  const itemsToInsert = newItems.filter(
-    (item: any) => !existingHrefs.has(item.href)
+  const itemsToInsert = freshItems.filter(
+    (item) => !existingHrefs.has(item.href)
   );
   console.log(`🔍 Found ${itemsToInsert.length} new item(s) to insert.`);
   console.log("___________________________________\n");
@@ -33,31 +23,19 @@ export async function syncToNotion() {
     await notion.pages.create({
       parent: { database_id: databaseId },
       properties: {
-        Title: {
-          title: [{ text: { content: item.title } }],
-        },
-        Link: {
-          url: item.href,
-        },
-        Price: {
-          rich_text: [{ text: { content: item.price } }],
-        },
-        Location: {
-          rich_text: [{ text: { content: item.location } }],
-        },
-        Added: {
-          rich_text: [{ text: { content: item.addedDate } }],
-        },
+        Title: { title: [{ text: { content: item.title } }] },
+        Link: { url: item.href },
+        Price: { rich_text: [{ text: { content: item.price } }] },
+        Location: { rich_text: [{ text: { content: item.location } }] },
+        Added: { rich_text: [{ text: { content: item.addedDate } }] },
       },
     });
 
-    insertSpinner.stop();
-
+    insertSpinner.stop(); // optional: move outside the loop
     console.log(`✅ Inserted: ${item.title}`);
   }
 
   insertSpinner.stop();
-
   if (itemsToInsert.length === 0) {
     console.log("📭 No new items found. Database is already up to date.");
   } else {
