@@ -10,7 +10,9 @@
   ],
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts && tsx src/views/flights.ts",
+    "flights": "tsx src/views/flights.ts",
+    "test": "tsx src/test-notion.ts"
   },
   "keywords": [],
   "author": "",

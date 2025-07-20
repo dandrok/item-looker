@@ -34,8 +34,11 @@ jobs:
           libxinerama1 libpango-1.0-0 libcups2 libdbus-1-3 \
           libgdk-pixbuf2.0-0 libglib2.0-0 libxss1 fonts-liberation
 
-      - name: Run main script
-        run: npx tsx src/index.ts
+      - name: Run olx script
+        run: timeout 300s npx tsx src/index.ts
+
+      - name: Run flights script
+        run: timeout 300s npx tsx src/views/flights.ts
         env:
           NOTION_TOKEN: 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
           NOTION_DATABASE_ID: 22f63fff-f2d6-80b4-93f8-ce1dc495aefa
