@@ -1,10 +1,17 @@
 import { Client } from "@notionhq/client";
 import ora from "ora";
+import dotenv from "dotenv";
+dotenv.config();
 
-const notionToken = "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";
-const databaseId = "22f63fff-f2d6-80b4-93f8-ce1dc495aefa";
+const auth = process.env.NOTION_TOKEN;
+const database_id = process.env.OLX_DB_ID;
 
-const notion = new Client({ auth: notionToken });
+console.log(
+  "🔑 NOTION_TOKEN--runscript =",
+  process.env.NOTION_TOKEN?.slice(0, 8)
+); // safe preview
+
+const notion = new Client({ auth });
 
 export async function syncToNotion(freshItems: any[]) {
   const spinner = ora("Fetching existing items from Notion...").start();
@@ -21,7 +28,7 @@ export async function syncToNotion(freshItems: any[]) {
 
   for (const item of itemsToInsert) {
     await notion.pages.create({
-      parent: { database_id: databaseId },
+      parent: { database_id },
       properties: {
         Title: { title: [{ text: { content: item.title } }] },
         Link: { url: item.href },
@@ -53,7 +60,7 @@ async function getExistingHrefsFromNotion(): Promise<Set<string>> {
 
   do {
     const response = await notion.databases.query({
-      database_id: databaseId,
+      database_id,
       start_cursor: cursor,
     });
 

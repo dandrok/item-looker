@@ -1,10 +1,13 @@
 import { Client } from "@notionhq/client";
+import dotenv from "dotenv";
+dotenv.config();
+
+const auth = process.env.NOTION_TOKEN;
+const database_id = process.env.FLIGHTS_DB_ID;
 
 const notion = new Client({
-  auth: "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",
+  auth,
 });
-
-const databaseId = "23663fff-f2d6-8048-b3e2-e89f4772b6a9";
 
 function formatNow(): string {
   const now = new Date();
@@ -29,7 +32,7 @@ export async function addFlightToNotion(flight: {
 }) {
   try {
     await notion.pages.create({
-      parent: { database_id: databaseId },
+      parent: { database_id },
       properties: {
         "Created At": {
           title: [

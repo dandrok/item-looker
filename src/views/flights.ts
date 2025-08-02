@@ -2,9 +2,9 @@ import ora from "ora";
 import puppeteer from "puppeteer";
 import { addFlightToNotion } from "../db/flights";
 
-const origin = "EIN";
-const destination = "KRK";
-const passengers = "for 1 adult and 1 child";
+const origin = process.env.ORIGIN || "EIN";
+const destination = process.env.DESTINATION || "KRK";
+const passengers = process.env.PASSENGERS || "for 1 adult and 1 child";
 const departureDates = [
   "October 15 2025",
   "October 16 2025",

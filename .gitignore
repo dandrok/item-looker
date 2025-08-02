@@ -1,0 +1,19 @@
+# Environment variables
+.env
+.env.*    # optional: .env.local, .env.production, etc.
+
+# Node
+node_modules/
+dist/
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# TypeScript (if you ever start using tsconfig)
+*.tsbuildinfo
+
+# Editor folders
+.vscode/
+.idea/
