@@ -95,10 +95,10 @@ This project uses two separate Notion databases: one for flight prices and one f
 
 Each flight entry includes dates and price.
 
-`Created At` `Title` - Timestamp of entry creation
-`depart` `Date` - Outbound flight date
-`return` `Date` - Return flight date
-`price` `Number` - Flight price (e.g. in PLN or EUR)
+- `Created At` `Title` - Timestamp of entry creation
+- `depart` `Date` - Outbound flight date
+- `return` `Date` - Return flight date
+- `price` `Number` - Flight price (e.g. in PLN or EUR)
 
 Example structure in code:
 
@@ -129,11 +129,11 @@ Example structure in code:
 
 Each OLX listing entry includes the item title, price, location, date added, and link.
 
-`Title` `Title` - Listing title
-`Price` `Rich Text` - Price string from the ad
-`Location` `Rich Text` - Location of the listing
-`Added` `Rich Text` - Date it was added (as text)
-`Link` `URL` - Direct link to the OLX listing
+- `Title` `Title` - Listing title
+- `Price` `Rich Text` - Price string from the ad
+- `Location` `Rich Text` - Location of the listing
+- `Added` `Rich Text` - Date it was added (as text)
+- `Link` `URL` - Direct link to the OLX listing
 
 Example structure in code:
 
