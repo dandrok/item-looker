@@ -55,13 +55,14 @@ Variable Description
 
 ### 🧠 Structure
 
+```bash
 src/
-├── index.ts `# Entry point for item scraper`
+├── index.ts              # Entry point for item scraper
 ├── views/
-│ └── flights.ts `# Script for scraping flight prices`
-├── views/
-│ └── olx.ts `# OLX-specific scraping logic`
-├── update-notion.ts `# Logic for syncing to Notion`
+│   ├── flights.ts        # Script for scraping flight prices
+│   └── olx.ts            # OLX-specific scraping logic
+└── update-notion.ts      # Logic for syncing data to Notion
+```
 
 ---
 
