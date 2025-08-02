@@ -1,13 +1,16 @@
 import { Client } from "@notionhq/client";
+import dotenv from "dotenv";
+dotenv.config();
 
-const notionToken = "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";
+const auth = process.env.NOTION_TOKEN;
+const database_id = process.env.TEST_ID || "";
 
-const notion = new Client({ auth: notionToken });
+const notion = new Client({ auth });
 
 async function addTestPage() {
   try {
     const response = await notion.pages.create({
-      parent: { database_id: "22f63fff-f2d6-80b4-93f8-ce1dc495aefa" },
+      parent: { database_id },
       properties: {
         Name: {
           title: [
