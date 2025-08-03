@@ -6,11 +6,6 @@ dotenv.config();
 const auth = process.env.NOTION_TOKEN;
 const database_id = process.env.OLX_DB_ID;
 
-console.log(
-  "🔑 NOTION_TOKEN--runscript =",
-  process.env.NOTION_TOKEN?.slice(0, 8)
-); // safe preview
-
 const notion = new Client({ auth });
 
 export async function syncToNotion(freshItems: any[]) {
