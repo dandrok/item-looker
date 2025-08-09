@@ -8,6 +8,11 @@ on:
 jobs:
   run-scripts:
     runs-on: ubuntu-latest
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      OLX_DB_ID: ${{ secrets.OLX_DB_ID }}
+      FLIGHTS_DB_ID: ${{ secrets.FLIGHTS_DB_ID }}
+      TOKYO_DB_ID: ${{ secrets.TOKYO_DB_ID }}
     steps:
       - uses: actions/checkout@v3
 
@@ -36,16 +41,7 @@ jobs:
 
       - name: Run all scripts in parallel
         run: |
-          timeout 300s npx tsx src/index.ts \
-            --env NOTION_TOKEN="${{ secrets.NOTION_TOKEN }}" \
-            --env OLX_DB_ID="${{ secrets.OLX_DB_ID }}" &
-
-          timeout 300s npx tsx src/views/flights.ts \
-            --env NOTION_TOKEN="${{ secrets.NOTION_TOKEN }}" \
-            --env FLIGHTS_DB_ID="${{ secrets.FLIGHTS_DB_ID }}" &
-
-          timeout 300s npx tsx src/views/tokyo.ts \
-            --env NOTION_TOKEN="${{ secrets.NOTION_TOKEN }}" \
-            --env TOKYO_DB_ID="${{ secrets.TOKYO_DB_ID }}" &
-
+          timeout 300s npx tsx src/index.ts &
+          timeout 300s npx tsx src/views/flights.ts &
+          timeout 300s npx tsx src/views/tokyo.ts &
           wait
