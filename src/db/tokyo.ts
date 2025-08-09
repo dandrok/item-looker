@@ -109,7 +109,6 @@ export async function addTokyoFlightToNotion(flight: EnhancedTokyoFlight) {
   const pageData: any = {
     parent: { database_id },
     properties: {
-      // IMPROVED: Better title with route info
       "Flight Info": {
         title: [
           {
@@ -121,13 +120,9 @@ export async function addTokyoFlightToNotion(flight: EnhancedTokyoFlight) {
           },
         ],
       },
-
-      // NEW: Destination as Select (better for filtering/grouping)
       Destination: {
         select: { name: flight.destination },
       },
-
-      // EXISTING: Keep your current date fields
       Depart: {
         date: { start: new Date(flight.depart).toISOString() },
       },
@@ -137,8 +132,6 @@ export async function addTokyoFlightToNotion(flight: EnhancedTokyoFlight) {
       Price: {
         number: flight.price,
       },
-
-      // NEW: Trip details
       "Trip Length": {
         number: tripLength,
       },
@@ -148,16 +141,12 @@ export async function addTokyoFlightToNotion(flight: EnhancedTokyoFlight) {
       "Days Until Departure": {
         number: daysUntilDeparture,
       },
-
-      // NEW: Deal tracking
       "Deal Status": {
         select: { name: dealInfo.dealLevel },
       },
       "Is Good Deal": {
         checkbox: dealInfo.isDeal,
       },
-
-      // NEW: Price change tracking (the feature you wanted!)
       ...(priceChange !== null && {
         "Price Change": {
           number: priceChange,
@@ -176,13 +165,9 @@ export async function addTokyoFlightToNotion(flight: EnhancedTokyoFlight) {
           number: previousPrice,
         },
       }),
-
-      // NEW: When this was checked
       "Checked At": {
         date: { start: new Date().toISOString() },
       },
-
-      // NEW: Booking urgency
       "Booking Urgency": {
         select: {
           name:
@@ -201,7 +186,6 @@ export async function addTokyoFlightToNotion(flight: EnhancedTokyoFlight) {
   try {
     await notion.pages.create(pageData);
 
-    // Enhanced logging
     const changeEmoji = priceChange
       ? priceChange < 0
         ? "📉"
